@@ -83,6 +83,19 @@ Run the tests with:
 $ make test
 ```
 
+## Run in a docker container
+Copy `docker/config.json.sample` to `docker/config.json` and edit to your liking.
+
+Build the docker container and run it with:
+
+```
+cd docker
+docker build -t ekmartin-slack-irc .
+docker run -d -t ekmartin-slack-irc
+```
+
+Enjoy :)
+
 ## License
 
 (The MIT License)

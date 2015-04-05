@@ -1,0 +1,23 @@
+[
+  {
+    "nickname": "test",
+    "server": "irc.bottest.org",
+    "token": "slacktoken",
+    "autoSendCommands": [
+        ["MODE", "test", "+i"],
+        ["AUTH", "test", "password"]
+    ],
+    "channelMapping": {
+      "#slack": "#irc",
+      "privategroup": "#other-channel"
+    }
+  },
+  {
+    "nickname": "test2",
+    "server": "irc.testbot.org",
+    "token": "slacktoken2",
+    "channelMapping": {
+      "#other-slack": "#new-irc-channel"
+    }
+  }
+]
