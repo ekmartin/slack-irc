@@ -1,0 +1,18 @@
+[
+  {
+    "nickname": "Bot name here",
+    "server": "irc.hostname.tld",
+    "token": "Insert your token here",
+    "autoSendCommands": [
+      ["PRIVMSG", "NickServ", "IDENTIFY [password]"]
+    ],
+    "channelMapping": { 
+      "#slack_channel": "#irc_channel"      
+    },
+    "ircOptions": {
+      "floodProtection": false, 
+      "floodProtectionDelay": 1000 
+    },
+    "welcome_message": "Welcome to the IRC Channel!"
+  }
+]
