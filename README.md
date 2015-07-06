@@ -80,7 +80,10 @@ as long as they're present in the channel mapping.
     },
     // Makes the bot hide the username prefix for messages that start
     // with one of these characters (commands):
-    "commandCharacters": ["!", "."]
+    "commandCharacters": ["!", "."],
+
+    // Disables the communication from Slack to IRC
+    "silent": true
   }
 ]
 ```
