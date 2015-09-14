@@ -59,9 +59,11 @@ as long as they're present in the channel mapping.
     },
     "ircOptions": { // Optional node-irc options
       "floodProtection": false, // On by default
-      "floodProtectionDelay": 1000, // 500 by default
+      "floodProtectionDelay": 1000 // 500 by default
+    },
+    "slackOptions": { // Optional node-irc options for Slack
       "partNotices": true, // False by default
-      "joinNotices": true // False by default
+      "joinNotices": true, // False by default
       "quitNotices": true // False by default
     }
   },
