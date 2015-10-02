@@ -43,6 +43,18 @@ describe('Bot', function() {
     ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
   });
 
+  it('should lowercase channel names before sending to slack', function() {
+    var message = {
+      text: 'testmessage',
+      username: 'testuser',
+      parse: 'full',
+      icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
+    };
+
+    this.bot.sendToSlack(message.username, '#IRC', message.text);
+    ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
+  });
+
   it('should not send messages to slack if the channel isn\'t in the channel mapping',
   function() {
     this.bot.sendToSlack('user', '#wrongchan', 'message');
@@ -69,6 +81,21 @@ describe('Bot', function() {
     ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
   });
 
+  it('should send /me messages to irc', function() {
+    var text = 'testmessage';
+    var message = {
+      channel: 'slack',
+      subtype: 'me_message',
+      getBody: function() {
+        return text;
+      }
+    };
+
+    this.bot.sendToIRC(message);
+    var ircText = 'Action: testuser ' + text;
+    ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
+  });
+
   it('should not send messages to irc if the channel isn\'t in the channel mapping',
   function() {
     this.bot.slack.returnWrongStubInfo = true;
@@ -77,6 +104,19 @@ describe('Bot', function() {
     };
     this.bot.sendToIRC(message);
     ClientStub.prototype.say.should.not.have.been.called;
+  });
+
+  it('should parse text from slack when sending messages', function() {
+    var text = '<@USOMEID> <@USOMEID|readable>';
+    var message = {
+      channel: 'slack',
+      getBody: function() {
+        return text;
+      }
+    };
+
+    this.bot.sendToIRC(message);
+    ClientStub.prototype.say.should.have.been.calledWith('#irc', '<testuser> @testuser readable');
   });
 
   it('should parse text from slack', function() {
@@ -96,5 +136,21 @@ describe('Bot', function() {
   it('should parse emojis correctly', function() {
     this.bot.parseText(':smile:').should.equal(':)');
     this.bot.parseText(':train:').should.equal(':train:');
+  });
+
+  it('should hide usernames for commands', function() {
+    var text = '!test command';
+    var message = {
+      channel: 'slack',
+      getBody: function() {
+        return text;
+      }
+    };
+
+    this.bot.sendToIRC(message);
+    ClientStub.prototype.say.getCall(0).args.should.deep.equal([
+      '#irc', 'Command sent from Slack by testuser:'
+    ]);
+    ClientStub.prototype.say.getCall(1).args.should.deep.equal(['#irc', text]);
   });
 });

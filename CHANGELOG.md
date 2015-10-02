@@ -1,6 +1,40 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.0] - 2015-09-14
+### Added
+- Support for actions from IRC to Slack and vice versa (/me messages).
+- Support for sending notices from IRC to Slack (/notice #channel message).
+
+## [3.5.2] - 2015-06-26
+### Fixed
+- Remove old unused dependencies.
+
+## [3.5.1] - 2015-06-26
+### Fixed
+- A bug introduced in 3.5.0 where Slack messages sent to IRC wouldn't get parsed.
+Adds a test to confirm correct behavior.
+
+## [3.5.0] - 2015-06-22
+### Added
+- `commandCharacters` option - makes the bot hide the username prefix for
+messages that start with one of the provided characters when posting to IRC.
+A `Command sent from Slack by username:` message will be posted to the IRC
+channel before the command is submitted.
+
+## [3.4.0] - 2015-05-22
+### Added
+- Made it possible to require slack-irc as a node module.
+
+## [3.3.2] - 2015-05-17
+### Fixed
+- Upgrade dependencies.
+
+## [3.3.1] - 2015-05-17
+### Fixed
+- Make IRC channel names case insensitive in the channel mapping.
+Relevant issue: [#31](https://github.com/ekmartin/slack-irc/issues/31)
+
 ## [3.3.0] - 2015-04-17
 ### Added
 - Conversion of emojis to text smileys from Slack to IRC, by [andebor](https://github.com/andebor).
@@ -12,8 +46,8 @@ Relevant issue: [#10](https://github.com/ekmartin/slack-irc/issues/10)
 
 ## [3.2.0] - 2015-04-03
 ### Added
-- Support for passing [node-irc](http://node-irc.readthedocs.org/en/latest/API.html#irc.Client) 
-options directly by adding an `ircOptions` object to the config. Also sets `floodProtection` on 
+- Support for passing [node-irc](http://node-irc.readthedocs.org/en/latest/API.html#irc.Client)
+options directly by adding an `ircOptions` object to the config. Also sets `floodProtection` on
 by default, with a delay of 500 ms.
 
 ## [3.1.0] - 2015-03-27

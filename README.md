@@ -1,4 +1,4 @@
-# slack-irc [![Build status](https://ci.frigg.io/badges/ekmartin/slack-irc/)](https://ci.frigg.io/ekmartin/slack-irc/last/) [![Coverage status](https://ci.frigg.io/badges/coverage/ekmartin/slack-irc/)](https://ci.frigg.io/ekmartin/slack-irc/last/)
+# slack-irc [![Join the chat at https://gitter.im/ekmartin/slack-irc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ekmartin/slack-irc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build status](https://ci.frigg.io/badges/ekmartin/slack-irc/)](https://ci.frigg.io/ekmartin/slack-irc/last/) [![Coverage status](https://ci.frigg.io/badges/coverage/ekmartin/slack-irc/)](https://ci.frigg.io/ekmartin/slack-irc/last/)
 
 > Connects Slack and IRC channels by sending messages back and forth. Read more [here](https://ekmartin.com/2015/slack-irc/).
 
@@ -18,6 +18,13 @@ or by cloning the repository:
 In the repository folder:
 $ npm install
 $ node index.js --config /path/to/config.json
+```
+
+It can also be used as a node module:
+```js
+var slackIRC = require('slack-irc');
+var config = require('./config.json');
+slackIRC(config);
 ```
 
 ## Configuration
@@ -43,7 +50,17 @@ as long as they're present in the channel mapping.
 ### Example configuration
 ```js
 [
-  // Bot 1:
+  // Bot 1 (minimal configuration):
+  {
+    "nickname": "test2",
+    "server": "irc.testbot.org",
+    "token": "slacktoken2",
+    "channelMapping": {
+      "#other-slack": "#new-irc-channel"
+    }
+  },
+
+  // Bot 2 (advanced options):
   {
     "nickname": "test",
     "server": "irc.bottest.org",
@@ -60,17 +77,10 @@ as long as they're present in the channel mapping.
     "ircOptions": { // Optional node-irc options
       "floodProtection": false, // On by default
       "floodProtectionDelay": 1000 // 500 by default
-    }
-  },
-
-  // Bot 2:
-  {
-    "nickname": "test2",
-    "server": "irc.testbot.org",
-    "token": "slacktoken2",
-    "channelMapping": {
-      "#other-slack": "#new-irc-channel"
-    }
+    },
+    // Makes the bot hide the username prefix for messages that start
+    // with one of these characters (commands):
+    "commandCharacters": ["!", "."]
   }
 ]
 ```
