@@ -180,6 +180,7 @@ describe('Bot Events', function() {
       var msg = nick + ' has quit the ' + b[i] + ' channel';
       Bot.prototype.sendToSlack.should.have.been.calledWithExactly(d, b[i], msg);
     }
+    
     this.bot.options.slackOptions.quitNotices = previousSetting;
   });
 
