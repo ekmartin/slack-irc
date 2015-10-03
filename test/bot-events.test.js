@@ -141,4 +141,46 @@ describe('Bot Events', function() {
     secondCall.args[0].should.equal('Channel not found in config, not joining:');
     secondCall.args[1].should.equal(channel);
   });
+
+  it('should send joins to slack', function() {
+    var a = this.bot.nickname;
+    var b = '#channel';
+    var nick = 'user';
+    var c = 'user has joined the ' + b + ' channel';
+    var previousSetting = this.bot.options.slackOptions.joinNotices;
+    this.bot.options.slackOptions.joinNotices = true;
+    this.bot.ircClient.emit('join', b, nick);
+    Bot.prototype.sendToSlack.should.have.been.calledWithExactly(a, b, c);
+    this.bot.options.slackOptions.joinNotices = previousSetting;
+  });
+
+  it('should send parts to slack', function() {
+    var a = this.bot.nickname;
+    var b = '#channel';
+    var nick = 'user';
+    var arg = 'junk';
+    var c = nick + ' has left the ' + b + ' channel';
+    var previousSetting = this.bot.options.slackOptions.partNotices;
+    this.bot.options.slackOptions.partNotices = true;
+    this.bot.ircClient.emit('part', b, nick, arg);
+    Bot.prototype.sendToSlack.should.have.been.calledWithExactly(a, b, c);
+    this.bot.options.slackOptions.partNotices = previousSetting;
+  });
+
+  it('should send quits to slack', function() {
+    var nick = 'user';
+    var a = 'junk';
+    var b = ['#irc channelKey', '#channel1'];
+    var c = 'peace between worlds';
+    var d = this.bot.nickname;
+    var previousSetting = this.bot.options.slackOptions.quitNotices;
+    this.bot.options.slackOptions.quitNotices = true;
+    this.bot.ircClient.emit('quit', nick, a, b, c);
+    for (i = 0; i < b.length; i++) {
+      var msg = nick + ' has quit the ' + b[i] + ' channel';
+      Bot.prototype.sendToSlack.should.have.been.calledWithExactly(d, b[i], msg);
+    }
+    this.bot.options.slackOptions.quitNotices = previousSetting;
+  });
+
 });

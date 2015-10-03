@@ -7,7 +7,20 @@
     ["MODE", "test", "+x"],
     ["AUTH", "test", "password"]
   ],
+  "options": { 
+      "ircOptions": { 
+        "floodProtection": false, 
+        "floodProtectionDelay": 1000, 
+        "welcomeMessage": "Welcome to the Hero6 IRC Channel!\nThe channel may seem empty, but it's not.  We're currently using Slack to centralize our development communication.  My job is to facilitate your communication with our private Slack channel.  I'll also post any messages from the developers in this channel."
+      },
+      "slackOptions": { 
+        "partNotices": true, 
+        "joinNotices": true, 
+        "quitNotices": true 
+      }
+    },
   "channelMapping": {
-    "#slack": "#irc channelKey"
+    "#slack": "#irc channelKey",
+    "#slack2": "#channel1"
   }
 }
