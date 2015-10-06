@@ -74,13 +74,29 @@ as long as they're present in the channel mapping.
       "#slack": "#irc channel-password", // Add channel keys after the channel name
       "privategroup": "#other-channel" // No hash in front of private groups
     },
-    "ircOptions": { // Optional node-irc options
-      "floodProtection": false, // On by default
-      "floodProtectionDelay": 1000 // 500 by default
+    "options": { // Container for all node-irc options
+      "ircOptions": { // Optional Slack->IRC options
+        "floodProtection": false, // On by default
+        "floodProtectionDelay": 1000 // 500 by default
+      },
+      "slackOptions": { // Optional IRC->Slack options
+        "partNotices": true, // False by default
+        "joinNotices": true, // False by default
+        "quitNotices": true // False by default
+      }
     },
     // Makes the bot hide the username prefix for messages that start
     // with one of these characters (commands):
     "commandCharacters": ["!", "."]
+  },
+  // Bot 2:
+  {
+    "nickname": "test2",
+    "server": "irc.testbot.org",
+    "token": "slacktoken2",
+    "channelMapping": {
+      "#other-slack": "#new-irc-channel"
+    }
   }
 ]
 ```
