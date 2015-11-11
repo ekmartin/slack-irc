@@ -1,7 +1,7 @@
 {
   "name": "slack-irc-sajt",
-  "version": "3.6.0",
-  "description": "Connects IRC and Slack channels by sending messages back and forth.",
+  "version": "3.6.1",
+  "description": "Connects IRC and Slack channels by sending messages back and forth. Sajt version with userlist command.",
   "keywords": [
     "slack",
     "irc",
