@@ -1,5 +1,5 @@
 {
-  "name": "slack-irc",
+  "name": "slack-irc-sajt",
   "version": "3.6.0",
   "description": "Connects IRC and Slack channels by sending messages back and forth.",
   "keywords": [
@@ -12,10 +12,10 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ekmartin/slack-irc.git"
+    "url": "git@github.com:sajt/slack-irc.git"
   },
   "bugs": {
-    "url": "https://github.com/ekmartin/slack-irc/issues"
+    "url": "https://github.com/sajt/slack-irc/issues"
   },
   "scripts": {
     "start": "node index.js",
