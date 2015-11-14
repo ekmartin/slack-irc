@@ -2,6 +2,13 @@
 
 > Connects Slack and IRC channels by sending messages back and forth. Read more [here](https://ekmartin.com/2015/slack-irc/).
 
+This version has a command: 
+
+```bash
+userlist
+```
+
+This lists all users in irc from the slack
 ## Demo
 ![Slack IRC](http://i.imgur.com/58H6HgO.gif)
 
