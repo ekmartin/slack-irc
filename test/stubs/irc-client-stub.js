@@ -1,8 +1,5 @@
-var util = require('util');
-var events = require('events');
+import { EventEmitter } from 'events';
 
-function ClientStub() {}
+class ClientStub extends EventEmitter {}
 
-util.inherits(ClientStub, events.EventEmitter);
-
-module.exports = ClientStub;
+export default ClientStub;

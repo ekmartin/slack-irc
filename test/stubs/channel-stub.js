@@ -1,14 +1,14 @@
-var util = require('util');
-var events = require('events');
-var sinon = require('sinon');
+import { EventEmitter } from 'events';
+import sinon from 'sinon';
 
-function ChannelStub() {
-  this.name = 'slack';
-  this.is_channel = true;
+class ChannelStub extends EventEmitter {
+  constructor() {
+    super();
+    this.name = 'slack';
+    this.is_channel = true;
+  }
 }
-
-util.inherits(ChannelStub, events.EventEmitter);
 
 ChannelStub.prototype.postMessage = sinon.stub();
 
-module.exports = ChannelStub;
+export default ChannelStub;
