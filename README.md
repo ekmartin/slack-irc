@@ -15,9 +15,10 @@ $ slack-irc --config /path/to/config.json
 or by cloning the repository:
 
 ```bash
-In the repository folder:
+$ git clone https://github.com/ekmartin/slack-irc.git && cd slack-irc
 $ npm install
-$ node index.js --config /path/to/config.json
+$ npm run build
+$ npm start -- --config /path/to/config.json # Note the extra -- here
 ```
 
 It can also be used as a node module:
@@ -87,13 +88,21 @@ as long as they're present in the channel mapping.
 
 `ircOptions` is passed directly to node-irc ([available options](http://node-irc.readthedocs.org/en/latest/API.html#irc.Client)).
 
-## Tests
+## Development
+To be able to use the latest ES2015+ features, slack-irc uses [Babel](https://babeljs.io).
+
+Build the source with:
+```bash
+$ npm run build
+```
+
+### Tests
 Run the tests with:
 ```bash
 $ npm test
 ```
 
-## Style Guide
+### Style Guide
 slack-irc uses a slightly modified version of the
 [Airbnb Style Guide](https://github.com/airbnb/javascript/tree/master/es5).
 [ESLint](http://eslint.org/) is used to make sure this is followed correctly, which can be run with:
