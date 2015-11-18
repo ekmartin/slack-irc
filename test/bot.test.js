@@ -1,9 +1,10 @@
 /* eslint no-unused-expressions: 0 */
 var chai = require('chai');
+var sinon = require('sinon');
+var logger = require('winston');
 var sinonChai = require('sinon-chai');
-var rewire = require('rewire');
 var irc = require('irc');
-var Bot = rewire('../lib/bot');
+var Bot = require('../lib/bot');
 var SlackStub = require('./stubs/slack-stub');
 var ChannelStub = require('./stubs/channel-stub');
 var ClientStub = require('./stubs/irc-client-stub');
@@ -13,16 +14,27 @@ chai.should();
 chai.use(sinonChai);
 
 describe('Bot', function() {
-  before(function() {
-    irc.Client = ClientStub;
-    Bot.__set__('Slack', SlackStub);
+  var sandbox = sinon.sandbox.create({
+    useFakeTimers: false,
+    useFakeServer: false
+  });
+
+  beforeEach(function() {
+    sandbox.stub(logger, 'info');
+    sandbox.stub(logger, 'debug');
+    sandbox.stub(logger, 'error');
+    sandbox.stub(irc, 'Client', ClientStub);
+    ClientStub.prototype.say = sandbox.stub();
+    ClientStub.prototype.send = sandbox.stub();
+    ClientStub.prototype.join = sandbox.stub();
+    SlackStub.prototype.login = sandbox.stub();
     this.bot = new Bot(config);
+    this.bot.slack = new SlackStub();
     this.bot.connect();
   });
 
   afterEach(function() {
-    this.bot.slack.resetStub();
-    ClientStub.prototype.say.reset();
+    sandbox.restore();
     ChannelStub.prototype.postMessage.reset();
   });
 
@@ -61,7 +73,10 @@ describe('Bot', function() {
   });
 
   it('should not send messages to slack if the bot isn\'t in the channel', function() {
-    this.bot.slack.returnWrongStubInfo = true;
+    this.bot.slack.getChannelGroupOrDMByName = function() {
+      return null;
+    };
+
     this.bot.sendToSlack('user', '#irc', 'message');
     ChannelStub.prototype.postMessage.should.not.have.been.called;
   });
@@ -97,10 +112,14 @@ describe('Bot', function() {
 
   it('should not send messages to irc if the channel isn\'t in the channel mapping',
   function() {
-    this.bot.slack.returnWrongStubInfo = true;
+    this.bot.slack.getChannelGroupOrDMByID = function() {
+      return null;
+    };
+
     var message = {
       channel: 'wrongchannel'
     };
+
     this.bot.sendToIRC(message);
     ClientStub.prototype.say.should.not.have.been.called;
   });
