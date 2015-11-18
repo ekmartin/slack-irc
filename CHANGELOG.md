@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.1] - 2015-11-18
+### Changed
+- Refactor to use ES2015+ with Babel.
+- Refactor tests.
+
 ## [3.6.0] - 2015-09-14
 ### Added
 - Support for actions from IRC to Slack and vice versa (/me messages).
