@@ -1,22 +1,13 @@
 var chai = require('chai');
-var rewire = require('rewire');
-var irc = require('irc');
 var ConfigurationError = require('../lib/errors').ConfigurationError;
 var validateChannelMapping = require('../lib/validators').validateChannelMapping;
-var Bot = rewire('../lib/bot');
+var Bot = require('../lib/bot');
 var config = require('./fixtures/single-test-config.json');
 var caseConfig = require('./fixtures/case-sensitivity-config.json');
-var SlackStub = require('./stubs/slack-stub');
-var ClientStub = require('./stubs/irc-client-stub');
 
 chai.should();
 
 describe('Channel Mapping', function() {
-  before(function() {
-    irc.Client = ClientStub;
-    Bot.__set__('Slack', SlackStub);
-  });
-
   it('should fail when not given proper JSON', function() {
     var wrongMapping = 'not json';
     function wrap() {

@@ -1,6 +1,5 @@
 var util = require('util');
 var events = require('events');
-var sinon = require('sinon');
 var ChannelStub = require('./channel-stub');
 
 function SlackStub() {
@@ -29,8 +28,6 @@ SlackStub.prototype.getUserByID = function() {
     name: 'testuser'
   };
 };
-
-SlackStub.prototype.login = sinon.stub();
 
 SlackStub.prototype.resetStub = function() {
   this.returnWrongStubInfo = false;
