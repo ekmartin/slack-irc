@@ -49,6 +49,7 @@ slack-irc also supports invite-only IRC channels, and will join any channels it'
 as long as they're present in the channel mapping.
 
 ### Example configuration
+Valid JSON cannot contain comments, so remember to remove them first!
 ```js
 [
   // Bot 1 (minimal configuration):
