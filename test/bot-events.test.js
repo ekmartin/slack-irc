@@ -36,7 +36,6 @@ describe('Bot Events', function() {
 
   afterEach(function() {
     sandbox.restore();
-    this.bot.slack.resetStub();
     ChannelStub.prototype.postMessage.reset();
   });
 

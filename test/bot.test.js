@@ -35,7 +35,6 @@ describe('Bot', function() {
 
   afterEach(function() {
     sandbox.restore();
-    this.bot.slack.resetStub();
     ChannelStub.prototype.postMessage.reset();
   });
 
@@ -74,7 +73,10 @@ describe('Bot', function() {
   });
 
   it('should not send messages to slack if the bot isn\'t in the channel', function() {
-    this.bot.slack.returnWrongStubInfo = true;
+    this.bot.slack.getChannelGroupOrDMByName = function() {
+      return null;
+    };
+
     this.bot.sendToSlack('user', '#irc', 'message');
     ChannelStub.prototype.postMessage.should.not.have.been.called;
   });
@@ -110,10 +112,14 @@ describe('Bot', function() {
 
   it('should not send messages to irc if the channel isn\'t in the channel mapping',
   function() {
-    this.bot.slack.returnWrongStubInfo = true;
+    this.bot.slack.getChannelGroupOrDMByID = function() {
+      return null;
+    };
+
     var message = {
       channel: 'wrongchannel'
     };
+
     this.bot.sendToIRC(message);
     ClientStub.prototype.say.should.not.have.been.called;
   });
