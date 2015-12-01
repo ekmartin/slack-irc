@@ -29,3 +29,4 @@ node_modules
 /*.json
 
 dist/
+.nyc_output/

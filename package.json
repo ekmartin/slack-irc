@@ -23,7 +23,7 @@
     "build": "babel lib --out-dir dist",
     "prepublish": "npm run build",
     "lint": "eslint . --ignore-path .gitignore",
-    "coverage": "istanbul cover _mocha -- --compilers js:babel-core/register $(find test -name '*.test.js') && istanbul report cobertura",
+    "coverage": "nyc --require babel-core/register _mocha -- $(find test -name '*.test.js') && nyc report --reporter=cobertura",
     "test": "npm run lint && npm run coverage"
   },
   "author": {
@@ -49,6 +49,7 @@
     "eslint-config-airbnb": "~1.0.2",
     "istanbul": "~0.4.1",
     "mocha": "~2.3.4",
+    "nyc": "~4.0.1",
     "sinon": "~1.17.2",
     "sinon-chai": "~2.8.0"
   }
