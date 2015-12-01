@@ -10,6 +10,9 @@
     "constructor-super": 2,
     "arrow-spacing": [2, { "before": true, "after": true }],
   },
+  "ecmaFeatures": {
+    "experimentalObjectRestSpread": true
+  },
   "env": {
     "mocha": true,
     "node": true
