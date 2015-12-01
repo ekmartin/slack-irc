@@ -1,6 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.2] - 2015-12-01
+### Changed
+- Upgraded dependencies.
+
 ## [3.6.1] - 2015-11-18
 ### Changed
 - Refactor to use ES2015+ with Babel.
