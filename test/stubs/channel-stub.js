@@ -6,6 +6,7 @@ class ChannelStub extends EventEmitter {
     super();
     this.name = 'slack';
     this.is_channel = true;
+    this.members = ['testuser'];
   }
 }
 
