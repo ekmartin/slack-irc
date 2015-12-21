@@ -36,6 +36,7 @@
     "irc": "~0.4.0",
     "lodash": "~3.10.1",
     "slack-client": "~1.5.0",
+    "strip-json-comments": "~2.0.0",
     "winston": "~2.1.1"
   },
   "devDependencies": {

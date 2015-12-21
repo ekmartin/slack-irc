@@ -31,6 +31,20 @@ describe('CLI', function() {
     this.createBotsStub.should.have.been.calledWith(testConfig);
   });
 
+  it('should strip comments from JSON config', function() {
+    process.env.CONFIG_FILE = process.cwd() + '/test/fixtures/test-config-comments.json';
+    process.argv = ['node', 'index.js'];
+    cli();
+    this.createBotsStub.should.have.been.calledWith(testConfig);
+  });
+
+  it('should support JS configs', function() {
+    process.env.CONFIG_FILE = process.cwd() + '/test/fixtures/test-javascript-config.js';
+    process.argv = ['node', 'index.js'];
+    cli();
+    this.createBotsStub.should.have.been.calledWith(testConfig);
+  });
+
   it('should be possible to give the config as an option', function() {
     delete process.env.CONFIG_FILE;
     process.argv = [

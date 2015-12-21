@@ -1,13 +1,15 @@
 [
+  // This is a comment
   {
-    "nickname": "test",
-    "server": "irc.bottest.org",
+    "nickname": "test", // comment
+    "server": /* comment */ "irc.bottest.org",
     "token": "testtoken",
     "channelMapping": {
       "#slack": "#irc"
     }
   },
   {
+    // comment
     "nickname": "test2",
     "server": "irc.bottest.org",
     "token": "testtoken",
