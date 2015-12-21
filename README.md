@@ -85,7 +85,12 @@ Valid JSON cannot contain comments, so remember to remove them first!
     "commandCharacters": ["!", "."],
     // Prevent messages posted by Slackbot (e.g. Slackbot responses)
     // from being posted into the IRC channel:
-    "muteSlackbot": true // Off by default
+    "muteSlackbot": true, // Off by default
+    // Sends messages to Slack whenever a user joins/leaves an IRC channel:
+    "ircStatusNotices": {
+      "join": false, // Don't send messages about joins
+      "leave": true
+    }
   }
 ]
 ```

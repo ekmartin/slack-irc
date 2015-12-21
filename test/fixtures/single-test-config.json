@@ -9,5 +9,9 @@
   ],
   "channelMapping": {
     "#slack": "#irc channelKey"
+  },
+  "ircStatusNotices": {
+    "join": true,
+    "leave": true
   }
 }

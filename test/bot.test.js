@@ -54,6 +54,19 @@ describe('Bot', function() {
     ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
   });
 
+  it('should not include an avatar for the bot\'s own messages',
+  function() {
+    const message = {
+      text: 'testmessage',
+      username: config.nickname,
+      parse: 'full',
+      icon_url: undefined
+    };
+
+    this.bot.sendToSlack(message.username, '#irc', message.text);
+    ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
+  });
+
   it('should lowercase channel names before sending to slack', function() {
     const message = {
       text: 'testmessage',
