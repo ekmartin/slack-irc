@@ -45,6 +45,13 @@ describe('CLI', function() {
     this.createBotsStub.should.have.been.calledWith(testConfig);
   });
 
+  it('should throw a ConfigurationError for invalid JSON', function() {
+    process.env.CONFIG_FILE = process.cwd() + '/test/fixtures/invalid-config.json';
+    process.argv = ['node', 'index.js'];
+    const wrap = () => cli();
+    (wrap).should.throw('The configuration file contains invalid JSON');
+  });
+
   it('should be possible to give the config as an option', function() {
     delete process.env.CONFIG_FILE;
     process.argv = [
