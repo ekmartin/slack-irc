@@ -94,6 +94,23 @@ describe('Bot', function() {
     ChannelStub.prototype.postMessage.should.not.have.been.called;
   });
 
+  it('should replace a bare username if the user is in-channel', function() {
+    const message = {
+      text: 'testuser should be replaced in the message',
+      username: 'testuser',
+      parse: 'full',
+      icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
+    };
+
+    const expected = {
+      ...message,
+      text: '@testuser should be replaced in the message'
+    };
+
+    this.bot.sendToSlack(message.username, '#IRC', message.text);
+    ChannelStub.prototype.postMessage.should.have.been.calledWith(expected);
+  });
+
   it('should send correct messages to irc', function() {
     const text = 'testmessage';
     const message = {
