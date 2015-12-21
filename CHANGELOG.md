@@ -1,6 +1,18 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.0] - 2015-12-21
+### Added
+- Valid usernames are now highlighted with an @ before messages are posted to Slack, thanks to @grahamb.
+- `muteSlackbot` option that stops Slackbot messages from being forwarded to IRC, also courtesy of @grahamb.
+- `ircStatusNotices` option that makes slack-irc send status updates to Slack whenever an IRC user
+joins/parts/quits. See README.md for example.
+
+### Changed
+- Upgraded dependencies.
+- Comments are now stripped from JSON configs before they're parsed.
+- Configurations with invalid JSON now throws a ConfigurationError.
+
 ## [3.6.2] - 2015-12-01
 ### Changed
 - Upgraded dependencies.
