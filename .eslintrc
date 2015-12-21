@@ -9,6 +9,7 @@
     "prefer-spread": 2,
     "constructor-super": 2,
     "arrow-spacing": [2, { "before": true, "after": true }],
+    "space-before-function-paren": 0
   },
   "ecmaFeatures": {
     "experimentalObjectRestSpread": true
