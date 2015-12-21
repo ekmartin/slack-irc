@@ -82,7 +82,10 @@ Valid JSON cannot contain comments, so remember to remove them first!
     },
     // Makes the bot hide the username prefix for messages that start
     // with one of these characters (commands):
-    "commandCharacters": ["!", "."]
+    "commandCharacters": ["!", "."],
+    // Prevent messages posted by Slackbot (e.g. Slackbot responses)
+    // from being posted into the IRC channel:
+    "muteSlackbot": true // Off by default
   }
 ]
 ```
