@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.1] - 2016-01-10
+### Changed
+- Added babel-polyfill, fixes #70.
+- Updated dependencies.
+
 ## [3.7.0] - 2015-12-21
 ### Added
 - Valid usernames are now highlighted with an @ before messages are posted to Slack, thanks to @grahamb.
