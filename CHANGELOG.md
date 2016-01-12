@@ -1,6 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.2] - 2016-01-12
+### Changed
+- Remove babel-polyfill, use functions available in Node 0.10 and above instead.
+
 ## [3.7.1] - 2016-01-10
 ### Changed
 - Added babel-polyfill, fixes #70.
