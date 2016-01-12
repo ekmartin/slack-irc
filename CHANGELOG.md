@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.3] - 2016-01-12
+### Fixed
+- Don't crash when trying to send a message to a Slack channel the bot
+isn't a member of.
+
 ## [3.7.2] - 2016-01-12
 ### Changed
 - Remove babel-polyfill, use functions available in Node 0.10 and above instead.

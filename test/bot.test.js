@@ -86,8 +86,16 @@ describe('Bot', function() {
   });
 
   it('should not send messages to slack if the bot isn\'t in the channel', function() {
-    this.bot.slack.getChannelGroupOrDMByName = function() {
-      return null;
+    this.bot.slack.getChannelGroupOrDMByName = () => null;
+    this.bot.sendToSlack('user', '#irc', 'message');
+    ChannelStub.prototype.postMessage.should.not.have.been.called;
+  });
+
+  it('should not send messages to slack if the channel\'s is_member is false', function() {
+    this.bot.slack.getChannelGroupOrDMByName = () => {
+      const channel = new ChannelStub();
+      channel.is_member = false;
+      return channel;
     };
 
     this.bot.sendToSlack('user', '#irc', 'message');
