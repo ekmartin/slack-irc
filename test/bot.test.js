@@ -54,6 +54,25 @@ describe('Bot', function() {
     ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
   });
 
+  it('should send messages to slack groups if the bot is in the channel', function() {
+    this.bot.slack.getChannelGroupOrDMByName = () => {
+      const channel = new ChannelStub();
+      delete channel.is_member;
+      channel.is_group = true;
+      return channel;
+    };
+
+    const message = {
+      text: 'testmessage',
+      username: 'testuser',
+      parse: 'full',
+      icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
+    };
+
+    this.bot.sendToSlack(message.username, '#irc', message.text);
+    ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
+  });
+
   it('should not include an avatar for the bot\'s own messages',
   function() {
     const message = {
