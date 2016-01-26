@@ -1,6 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.5] - 2016-01-26
+### Fixed
+- Make sure Don doesn't get highlighted for messages containing "don't", fixed by @Ibuprofen.
+
 ## [3.7.4] - 2016-01-21
 ### Fixed
 - Fix a bug where the bot-in-channel check would fail for private groups.
