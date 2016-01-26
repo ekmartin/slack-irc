@@ -3,18 +3,17 @@ import { highlightUsername } from '../lib/helpers';
 chai.should();
 
 describe('Bare Slack Username Replacement', () => {
-  it('should replace `username` with `@username`', () => {
-    const message = 'hey username, check this out';
-    const expected = 'hey @username, check this out';
-    const result = highlightUsername('username', message);
-    result.should.equal(expected);
+  ['', ',', '.', ':', '!', '?'].forEach(c => {
+    it(`should replace \`username${c}\` with \`@username${c}\``, () => {
+      const message = `hey username${c} check this out`;
+      const expected = `hey @username${c} check this out`;
+      highlightUsername('username', message).should.equal(expected);
+    });
   });
 
-  it('should replace when followed by a character', () => {
-    const message = 'username: go check this out';
-    const expected = '@username: go check this out';
-    const result = highlightUsername('username', message);
-    result.should.equal(expected);
+  it('should not replace `username\'` with `@username\'`', () => {
+    const message = 'username\' go check this out';
+    highlightUsername('username', message).should.equal(message);
   });
 
   it('should not replace `username` in a url with a protocol', () => {
