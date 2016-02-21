@@ -91,6 +91,12 @@ Valid JSON cannot contain comments, so remember to remove them first!
       "join": false, // Don't send messages about joins
       "leave": true
     }
+    // Use Gravatars in Slack rather than Adorable Avatars.
+    // The file should contain an array of arrays, each with
+    // a regular expression to match IRC nicknames and a Gravatar
+    // email address:
+    // [["someuser_*", "gravatar-email@foo.com"], ...]
+    "gravatars": "/path/to/gravatars.json"
   }
 ]
 ```
