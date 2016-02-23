@@ -97,6 +97,13 @@ Valid JSON cannot contain comments, so remember to remove them first!
 
 `ircOptions` is passed directly to node-irc ([available options](http://node-irc.readthedocs.org/en/latest/API.html#irc.Client)).
 
+## Personal IRC Client
+slack-irc strengths mainly lie in many-to-many communication from Slack to IRC,
+and is thus not very suitable as a makeshift IRC client for one user. If that's
+what you need, check out
+[aeirola/slack-irc-client](https://github.com/aeirola/slack-irc-client),
+which adds an array of features to solve this problem as smoothly as possible.
+
 ## Development
 To be able to use the latest ES2015+ features, slack-irc uses [Babel](https://babeljs.io).
 
