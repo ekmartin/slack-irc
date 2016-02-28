@@ -35,7 +35,7 @@
     "commander": "2.9.0",
     "irc": "0.4.0",
     "lodash": "3.10.1",
-    "slack-client": "2.0.3",
+    "slack-client": "2.0.4",
     "strip-json-comments": "2.0.0",
     "winston": "2.1.1"
   },
