@@ -1,4 +1,4 @@
-/* eslint no-unused-expressions: 0 */
+/* eslint-disable prefer-arrow-callback, no-unused-expressions */
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
