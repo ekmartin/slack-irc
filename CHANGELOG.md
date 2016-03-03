@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.6] - 2016-03-03
+## Fixed
+- Upgraded dependencies.
+- Update ESLint config to use preset eslint-config-webkom.
+
 ## [3.7.5] - 2016-01-26
 ### Fixed
 - Make sure Don doesn't get highlighted for messages containing "don't", fixed by @Ibuprofen.
