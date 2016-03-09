@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.7] - 2016-03-09
+## Fixed
+- Upgraded dependencies.
+- Pin ESLint to 2.2.0 so it works with babel-eslint 6.
+
 ## [3.7.6] - 2016-03-03
 ## Fixed
 - Upgraded dependencies.
