@@ -33,7 +33,7 @@
   "dependencies": {
     "check-env": "1.2.0",
     "commander": "2.9.0",
-    "irc": "0.4.1",
+    "irc": "0.5.0",
     "lodash": "4.6.1",
     "slack-client": "1.5.0",
     "strip-json-comments": "2.0.1",
