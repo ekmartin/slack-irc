@@ -217,6 +217,7 @@ describe('Bot', function() {
     this.bot.parseText('<@USOMEID> <@USOMEID|readable>')
       .should.equal('@testuser readable');
     this.bot.parseText('<https://example.com>').should.equal('https://example.com');
+    this.bot.parseText('<https://example.com|example.com>').should.equal('example.com');
     this.bot.parseText('<!somecommand> <!somecommand|readable>')
       .should.equal('<somecommand> <readable>');
   });
