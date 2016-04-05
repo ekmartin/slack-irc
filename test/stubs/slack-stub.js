@@ -1,20 +1,12 @@
 import { EventEmitter } from 'events';
-import ChannelStub from './channel-stub';
+import DataStoreStub from './data-store-stub';
 
-class SlackStub extends EventEmitter {
-  getUserByID() {
-    return {
-      name: 'testuser'
-    };
-  }
+export default function createSlackStub() {
+  const rtm = new EventEmitter();
+  rtm.dataStore = new DataStoreStub();
+  const web = {
+    chat: {}
+  };
+
+  return { rtm, web };
 }
-
-function getChannelStub() {
-  return new ChannelStub();
-}
-
-SlackStub.prototype.getChannelByID = getChannelStub;
-SlackStub.prototype.getChannelGroupOrDMByName = getChannelStub;
-SlackStub.prototype.getChannelGroupOrDMByID = getChannelStub;
-
-export default SlackStub;
