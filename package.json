@@ -23,6 +23,8 @@
     "build": "babel lib --out-dir dist",
     "prepublish": "npm run build",
     "lint": "eslint . --ignore-path .gitignore",
+    "mocha": "mocha --compilers js:babel-core/register $(find test -name '*.test.js')",
+    "mocha:watch": "npm run mocha -- --watch --reporter min",
     "coverage": "nyc --require babel-core/register _mocha -- $(find test -name '*.test.js') && nyc report --reporter=cobertura",
     "test": "npm run lint && npm run coverage"
   },
@@ -35,7 +37,7 @@
     "commander": "2.9.0",
     "irc": "0.5.0",
     "lodash": "4.8.2",
-    "slack-client": "1.5.0",
+    "@slack/client": "2.3.0",
     "strip-json-comments": "2.0.1",
     "winston": "2.2.0"
   },

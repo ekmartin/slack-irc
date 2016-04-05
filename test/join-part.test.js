@@ -32,6 +32,7 @@ describe('Join/Part/Quit Notices', function() {
     this.bot.sendToIRC = sandbox.stub();
     this.bot.sendToSlack = sandbox.stub();
     this.bot.slack = new SlackStub();
+    this.bot.slack.rtm.start = sandbox.stub();
   });
 
   afterEach(function() {

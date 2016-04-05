@@ -31,6 +31,7 @@ describe('Bot Events', function() {
     this.bot.sendToIRC = sandbox.stub();
     this.bot.sendToSlack = sandbox.stub();
     this.bot.slack = new SlackStub();
+    this.bot.slack.rtm.start = sandbox.stub();
     this.bot.connect();
   });
 
@@ -40,7 +41,7 @@ describe('Bot Events', function() {
   });
 
   it('should log on slack open event', function() {
-    this.bot.slack.emit('open');
+    this.bot.slack.rtm.emit('open');
     this.debugStub.should.have.been.calledWithExactly('Connected to Slack');
   });
 
@@ -54,7 +55,7 @@ describe('Bot Events', function() {
   it('should error log on error events', function() {
     const slackError = new Error('slack');
     const ircError = new Error('irc');
-    this.bot.slack.emit('error', slackError);
+    this.bot.slack.rtm.emit('error', slackError);
     this.bot.ircClient.emit('error', ircError);
     this.errorStub.getCall(0).args[0].should.equal('Received error event from Slack');
     this.errorStub.getCall(0).args[1].should.equal(slackError);
@@ -66,7 +67,7 @@ describe('Bot Events', function() {
     const message = {
       type: 'message'
     };
-    this.bot.slack.emit('message', message);
+    this.bot.slack.rtm.emit('message', message);
     this.bot.sendToIRC.should.have.been.calledWithExactly(message);
   });
 
@@ -74,7 +75,7 @@ describe('Bot Events', function() {
     const message = {
       type: 'notmessage'
     };
-    this.bot.slack.emit('message', message);
+    this.bot.slack.rtm.emit('message', message);
     this.bot.sendToIRC.should.have.not.have.been.called;
   });
 
@@ -83,7 +84,7 @@ describe('Bot Events', function() {
       type: 'message',
       subtype: 'bot_message'
     };
-    this.bot.slack.emit('message', message);
+    this.bot.slack.rtm.emit('message', message);
     this.bot.sendToIRC.should.have.not.have.been.called;
   });
 

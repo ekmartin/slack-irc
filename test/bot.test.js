@@ -27,15 +27,15 @@ describe('Bot', function() {
     ClientStub.prototype.say = sandbox.stub();
     ClientStub.prototype.send = sandbox.stub();
     ClientStub.prototype.join = sandbox.stub();
-    SlackStub.prototype.login = sandbox.stub();
     this.bot = new Bot(config);
     this.bot.slack = new SlackStub();
+    this.bot.slack.rtm.start = sandbox.stub();
+    this.bot.slack.web.chat.postMessage = sandbox.stub();
     this.bot.connect();
   });
 
   afterEach(function() {
     sandbox.restore();
-    ChannelStub.prototype.postMessage.reset();
   });
 
   it('should invert the channel mapping', function() {
@@ -43,108 +43,102 @@ describe('Bot', function() {
   });
 
   it('should send correct message objects to slack', function() {
+    const text = 'testmessage';
     const message = {
-      text: 'testmessage',
       username: 'testuser',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
-    this.bot.sendToSlack(message.username, '#irc', message.text);
-    ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
+    this.bot.sendToSlack(message.username, '#irc', text);
+    this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
   it('should send messages to slack groups if the bot is in the channel', function() {
-    this.bot.slack.getChannelGroupOrDMByName = () => {
+    this.bot.slack.rtm.dataStore.getChannelOrGroupByName = () => {
       const channel = new ChannelStub();
       delete channel.is_member;
       channel.is_group = true;
       return channel;
     };
 
+    const text = 'testmessage';
     const message = {
-      text: 'testmessage',
       username: 'testuser',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
-    this.bot.sendToSlack(message.username, '#irc', message.text);
-    ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
+    this.bot.sendToSlack(message.username, '#irc', text);
+    this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
   it('should not include an avatar for the bot\'s own messages',
   function() {
+    const text = 'testmessage';
     const message = {
-      text: 'testmessage',
       username: config.nickname,
       parse: 'full',
       icon_url: undefined
     };
 
-    this.bot.sendToSlack(message.username, '#irc', message.text);
-    ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
+    this.bot.sendToSlack(message.username, '#irc', text);
+    this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
   it('should lowercase channel names before sending to slack', function() {
+    const text = 'testmessage';
     const message = {
-      text: 'testmessage',
       username: 'testuser',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
-    this.bot.sendToSlack(message.username, '#IRC', message.text);
-    ChannelStub.prototype.postMessage.should.have.been.calledWith(message);
+    this.bot.sendToSlack(message.username, '#IRC', text);
+    this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
   it('should not send messages to slack if the channel isn\'t in the channel mapping',
   function() {
     this.bot.sendToSlack('user', '#wrongchan', 'message');
-    ChannelStub.prototype.postMessage.should.not.have.been.called;
+    this.bot.slack.web.chat.postMessage.should.not.have.been.called;
   });
 
   it('should not send messages to slack if the bot isn\'t in the channel', function() {
-    this.bot.slack.getChannelGroupOrDMByName = () => null;
+    this.bot.slack.rtm.dataStore.getChannelOrGroupByName = () => null;
     this.bot.sendToSlack('user', '#irc', 'message');
-    ChannelStub.prototype.postMessage.should.not.have.been.called;
+    this.bot.slack.web.chat.postMessage.should.not.have.been.called;
   });
 
   it('should not send messages to slack if the channel\'s is_member is false', function() {
-    this.bot.slack.getChannelGroupOrDMByName = () => {
+    this.bot.slack.rtm.dataStore.getChannelOrGroupByName = () => {
       const channel = new ChannelStub();
       channel.is_member = false;
       return channel;
     };
 
     this.bot.sendToSlack('user', '#irc', 'message');
-    ChannelStub.prototype.postMessage.should.not.have.been.called;
+    this.bot.slack.web.chat.postMessage.should.not.have.been.called;
   });
 
   it('should replace a bare username if the user is in-channel', function() {
     const message = {
-      text: 'testuser should be replaced in the message',
       username: 'testuser',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
-    const expected = {
-      ...message,
-      text: '@testuser should be replaced in the message'
-    };
-
-    this.bot.sendToSlack(message.username, '#IRC', message.text);
-    ChannelStub.prototype.postMessage.should.have.been.calledWith(expected);
+    const before = 'testuser should be replaced in the message';
+    const after = '@testuser should be replaced in the message';
+    this.bot.sendToSlack(message.username, '#IRC', before);
+    this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, after, message);
   });
 
   it('should send correct messages to irc', function() {
     const text = 'testmessage';
     const message = {
-      channel: 'slack',
-      getBody() {
-        return text;
-      }
+      text,
+      channel: 'slack'
     };
 
     this.bot.sendToIRC(message);
@@ -155,11 +149,9 @@ describe('Bot', function() {
   it('should send /me messages to irc', function() {
     const text = 'testmessage';
     const message = {
+      text,
       channel: 'slack',
-      subtype: 'me_message',
-      getBody() {
-        return text;
-      }
+      subtype: 'me_message'
     };
 
     this.bot.sendToIRC(message);
@@ -169,7 +161,7 @@ describe('Bot', function() {
 
   it('should not send messages to irc if the channel isn\'t in the channel mapping',
   function() {
-    this.bot.slack.getChannelGroupOrDMByID = () => null;
+    this.bot.slack.rtm.dataStore.getChannelGroupOrDMById = () => null;
     const message = {
       channel: 'wrongchannel'
     };
@@ -182,10 +174,8 @@ describe('Bot', function() {
   function() {
     const text = 'A message from Slackbot';
     const message = {
-      user: 'USLACKBOT',
-      getBody() {
-        return text;
-      }
+      text,
+      user: 'USLACKBOT'
     };
 
     this.bot.sendToIRC(message);
@@ -209,10 +199,8 @@ describe('Bot', function() {
   it('should parse text from slack when sending messages', function() {
     const text = '<@USOMEID> <@USOMEID|readable>';
     const message = {
-      channel: 'slack',
-      getBody() {
-        return text;
-      }
+      text,
+      channel: 'slack'
     };
 
     this.bot.sendToIRC(message);
@@ -241,10 +229,8 @@ describe('Bot', function() {
   it('should hide usernames for commands', function() {
     const text = '!test command';
     const message = {
-      channel: 'slack',
-      getBody() {
-        return text;
-      }
+      text,
+      channel: 'slack'
     };
 
     this.bot.sendToIRC(message);
