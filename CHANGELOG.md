@@ -1,6 +1,13 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.8] - 2016-04-06
+## Fixed
+- Set node-irc's retryCount to 10, so that the bot attempts to reconnect
+to IRC upon disconnects.
+- Upgraded dependencies, including an upgrade of node-slack-client from
+version 1 to 2.
+
 ## [3.7.7] - 2016-03-09
 ## Fixed
 - Upgraded dependencies.
