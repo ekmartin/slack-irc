@@ -23,6 +23,8 @@
     "build": "babel lib --out-dir dist",
     "prepublish": "npm run build",
     "lint": "eslint . --ignore-path .gitignore",
+    "mocha": "mocha --compilers js:babel-core/register $(find test -name '*.test.js')",
+    "mocha:watch": "npm run mocha -- --watch --reporter min",
     "coverage": "nyc --require babel-core/register _mocha -- $(find test -name '*.test.js') && nyc report --reporter=cobertura",
     "test": "npm run lint && npm run coverage"
   },
