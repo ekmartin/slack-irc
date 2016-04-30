@@ -1,6 +1,19 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.0] - 2016-04-30
+## Added
+- The configuration option `avatarUrl`, which lets you decide
+how IRC users' messages should be presented on Slack.
+This can be set to `false` to disable them altogether, or
+a custom URL to change the avatar.
+
+Example: `'https://robohash.org/$username.png'`, where
+$username will be replaced with the IRC author's username.
+
+## Fixed
+- Upgraded dependencies.
+
 ## [3.7.8] - 2016-04-06
 ## Fixed
 - Set node-irc's retryCount to 10, so that the bot attempts to reconnect
