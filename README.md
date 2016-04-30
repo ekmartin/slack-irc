@@ -6,7 +6,12 @@
 ![Slack IRC](http://i.imgur.com/58H6HgO.gif)
 
 ## Installation and usage
-Either by installing through npm:
+*Note*: [node-irc](https://github.com/martynsmith/node-irc/)
+uses icu-charset-detector as an optional dependency,
+which might fail to install depending on how you've installed Node.js.
+slack-irc works fine anyhow though, so no need to worry.
+
+Installing with npm:
 ```bash
 $ npm install -g slack-irc
 $ slack-irc --config /path/to/config.json
