@@ -19,6 +19,15 @@ describe('Bot', function() {
     useFakeServer: false
   });
 
+  const createBot = (cfg = config) => {
+    const bot = new Bot(cfg);
+    bot.slack = new SlackStub();
+    bot.slack.rtm.start = sandbox.stub();
+    bot.slack.web.chat.postMessage = sandbox.stub();
+    bot.connect();
+    return bot;
+  };
+
   beforeEach(function() {
     sandbox.stub(logger, 'info');
     sandbox.stub(logger, 'debug');
@@ -27,11 +36,7 @@ describe('Bot', function() {
     ClientStub.prototype.say = sandbox.stub();
     ClientStub.prototype.send = sandbox.stub();
     ClientStub.prototype.join = sandbox.stub();
-    this.bot = new Bot(config);
-    this.bot.slack = new SlackStub();
-    this.bot.slack.rtm.start = sandbox.stub();
-    this.bot.slack.web.chat.postMessage = sandbox.stub();
-    this.bot.connect();
+    this.bot = createBot();
   });
 
   afterEach(function() {
@@ -84,6 +89,59 @@ describe('Bot', function() {
 
     this.bot.sendToSlack(message.username, '#irc', text);
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
+  });
+
+  it('should not include an avatar if avatarUrl is set to false', function() {
+    const noAvatarConfig = {
+      ...config,
+      avatarUrl: false
+    };
+    const bot = createBot(noAvatarConfig);
+    const text = 'testmessage';
+    const message = {
+      username: 'testuser',
+      parse: 'full',
+      icon_url: undefined
+    };
+
+    bot.sendToSlack(message.username, '#irc', text);
+    bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
+  });
+
+  it('should use a custom icon url if given', function() {
+    const avatarUrl = 'https://cat.com';
+    const noAvatarConfig = {
+      ...config,
+      avatarUrl
+    };
+    const bot = createBot(noAvatarConfig);
+    const text = 'testmessage';
+    const message = {
+      username: 'testuser',
+      parse: 'full',
+      icon_url: avatarUrl
+    };
+
+    bot.sendToSlack(message.username, '#irc', text);
+    bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
+  });
+
+  it('should replace $username in the given avatarUrl', function() {
+    const avatarUrl = 'https://robohash.org/$username.png';
+    const noAvatarConfig = {
+      ...config,
+      avatarUrl
+    };
+    const bot = createBot(noAvatarConfig);
+    const text = 'testmessage';
+    const message = {
+      username: 'testuser',
+      parse: 'full',
+      icon_url: 'https://robohash.org/testuser.png'
+    };
+
+    bot.sendToSlack(message.username, '#irc', text);
+    bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
   it('should lowercase channel names before sending to slack', function() {
