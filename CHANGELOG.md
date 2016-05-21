@@ -1,6 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.1] - 2016-05-21
+## Fixed
+- Exit the application if the maximum retry count for IRC is reached.
+
 ## [3.8.0] - 2016-04-30
 ## Added
 - The configuration option `avatarUrl`, which lets you decide

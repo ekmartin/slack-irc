@@ -63,6 +63,12 @@ describe('Bot Events', function() {
     this.errorStub.getCall(1).args[1].should.equal(ircError);
   });
 
+  it('should crash on irc abort events', function() {
+    sandbox.stub(process, 'exit');
+    this.bot.ircClient.emit('abort', 10);
+    process.exit.should.have.been.calledWith(1);
+  });
+
   it('should send messages to irc if correct', function() {
     const message = {
       type: 'message'
