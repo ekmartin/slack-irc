@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git@github.com:ekmartin/slack-irc.git"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "bugs": {
     "url": "https://github.com/ekmartin/slack-irc/issues"
   },
