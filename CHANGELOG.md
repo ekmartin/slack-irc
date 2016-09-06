@@ -1,6 +1,15 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.2] - 2016-09-05
+## Fixed
+- Upgraded dependencies.
+ESLint has dropped support for older Node.js versions,
+which means you'll require at least Node.js 4.0 to develop
+on slack-irc. It'll still be possible to run the application
+with older Node.js versions.
+- Removed unused `emoji.json` file.
+
 ## [3.8.1] - 2016-05-21
 ## Fixed
 - Exit the application if the maximum retry count for IRC is reached.
