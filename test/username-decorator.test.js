@@ -31,4 +31,9 @@ describe('Bare Slack Username Replacement', () => {
     const message = 'hey @username, check this out';
     highlightUsername('username', message).should.equal(message);
   });
+
+  it('should not replace a username that is a common word', () => {
+    const message = 'this is just a regular sentence';
+    highlightUsername('a', message).should.equal(message);
+  });
 });
