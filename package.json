@@ -33,11 +33,14 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@slack/client": "3.2.0",
     "check-env": "1.2.0",
     "commander": "2.9.0",
+    "imgur": "^0.1.7",
     "irc": "0.5.0",
+    "irc-colors": "^1.2.1",
     "lodash": "4.13.1",
-    "@slack/client": "3.2.0",
+    "request": "^2.72.0",
     "strip-json-comments": "2.0.1",
     "winston": "2.2.0"
   },
