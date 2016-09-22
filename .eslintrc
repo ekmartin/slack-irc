@@ -1,11 +1,16 @@
 {
-  "extends": "webkom",
+  "extends": "airbnb-base",
   "parser": "babel-eslint",
   "env": {
     "mocha": true,
     "node": true
   },
   "rules": {
-    "global-require": 0
+    "global-require": 0,
+    "comma-dangle": 0,
+    "func-names": 0,
+    "space-before-function-paren": 0,
+    "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
+    "import/prefer-default-export": 0
   }
 }

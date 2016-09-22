@@ -1,5 +1,6 @@
 import chai from 'chai';
 import { highlightUsername } from '../lib/helpers';
+
 chai.should();
 
 describe('Bare Slack Username Replacement', () => {
