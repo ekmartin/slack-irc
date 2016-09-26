@@ -1,7 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.8.3] - 2016-09-05
+## [3.8.4] - 2016-09-26
+### Fixed
+- Make sure multiple links works for readable representation as well.
+
+## [3.8.3] - 2016-09-25
 ### Fixed
 - A bug where multiple links would be parsed wrongly, see
 https://github.com/ekmartin/slack-irc/issues/160
