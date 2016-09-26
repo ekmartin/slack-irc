@@ -283,6 +283,16 @@ describe('Bot', function () {
       .should.equal('<somecommand> <readable>');
   });
 
+  it('should handle entity-encoded messages from slack', function () {
+    this.bot.parseText('&amp;lt;&amp;gt;').should.equal('&lt;&gt;');
+    this.bot.parseText('&lt;@UNONEID&gt;').should.equal('<@UNONEID>');
+    this.bot.parseText('&lt;#CNONEID&gt;').should.equal('<#CNONEID>');
+    this.bot.parseText('&lt;!channel&gt;').should.equal('<!channel>');
+    this.bot.parseText('&lt;<http://example.com|example.com>&gt;').should.equal('<example.com>');
+    this.bot.parseText('java.util.List&lt;java.lang.String&gt;')
+      .should.equal('java.util.List<java.lang.String>');
+  });
+
   it('should parse emojis correctly', function () {
     this.bot.parseText(':smile:').should.equal(':)');
     this.bot.parseText(':train:').should.equal(':train:');
