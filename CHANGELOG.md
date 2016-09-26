@@ -1,8 +1,14 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.3] - 2016-09-05
+### Fixed
+- A bug where multiple links would be parsed wrongly, see
+https://github.com/ekmartin/slack-irc/issues/160
+- Upgraded linter.
+
 ## [3.8.2] - 2016-09-05
-## Fixed
+### Fixed
 - Upgraded dependencies.
 ESLint has dropped support for older Node.js versions,
 which means you'll require at least Node.js 4.0 to develop
@@ -11,11 +17,11 @@ with older Node.js versions.
 - Removed unused `emoji.json` file.
 
 ## [3.8.1] - 2016-05-21
-## Fixed
+### Fixed
 - Exit the application if the maximum retry count for IRC is reached.
 
 ## [3.8.0] - 2016-04-30
-## Added
+### Added
 - The configuration option `avatarUrl`, which lets you decide
 how IRC users' messages should be presented on Slack.
 This can be set to `false` to disable them altogether, or
@@ -24,23 +30,23 @@ a custom URL to change the avatar.
 Example: `'https://robohash.org/$username.png'`, where
 $username will be replaced with the IRC author's username.
 
-## Fixed
+### Fixed
 - Upgraded dependencies.
 
 ## [3.7.8] - 2016-04-06
-## Fixed
+### Fixed
 - Set node-irc's retryCount to 10, so that the bot attempts to reconnect
 to IRC upon disconnects.
 - Upgraded dependencies, including an upgrade of node-slack-client from
 version 1 to 2.
 
 ## [3.7.7] - 2016-03-09
-## Fixed
+### Fixed
 - Upgraded dependencies.
 - Pin ESLint to 2.2.0 so it works with babel-eslint 6.
 
 ## [3.7.6] - 2016-03-03
-## Fixed
+### Fixed
 - Upgraded dependencies.
 - Update ESLint config to use preset eslint-config-webkom.
 
