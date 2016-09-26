@@ -13,13 +13,13 @@ import config from './fixtures/single-test-config.json';
 chai.should();
 chai.use(sinonChai);
 
-describe('Bot Events', function() {
+describe('Bot Events', function () {
   const sandbox = sinon.sandbox.create({
     useFakeTimers: false,
     useFakeServer: false
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     this.infoStub = sandbox.stub(logger, 'info');
     this.debugStub = sandbox.stub(logger, 'debug');
     this.errorStub = sandbox.stub(logger, 'error');
@@ -35,24 +35,24 @@ describe('Bot Events', function() {
     this.bot.connect();
   });
 
-  afterEach(function() {
+  afterEach(function () {
     sandbox.restore();
     ChannelStub.prototype.postMessage.reset();
   });
 
-  it('should log on slack open event', function() {
+  it('should log on slack open event', function () {
     this.bot.slack.rtm.emit('open');
     this.debugStub.should.have.been.calledWithExactly('Connected to Slack');
   });
 
-  it('should try to send autoSendCommands on registered IRC event', function() {
+  it('should try to send autoSendCommands on registered IRC event', function () {
     this.bot.ircClient.emit('registered');
     ClientStub.prototype.send.should.have.been.calledTwice;
     ClientStub.prototype.send.getCall(0).args.should.deep.equal(config.autoSendCommands[0]);
     ClientStub.prototype.send.getCall(1).args.should.deep.equal(config.autoSendCommands[1]);
   });
 
-  it('should error log on error events', function() {
+  it('should error log on error events', function () {
     const slackError = new Error('slack');
     const ircError = new Error('irc');
     this.bot.slack.rtm.emit('error', slackError);
@@ -63,13 +63,13 @@ describe('Bot Events', function() {
     this.errorStub.getCall(1).args[1].should.equal(ircError);
   });
 
-  it('should crash on irc abort events', function() {
+  it('should crash on irc abort events', function () {
     sandbox.stub(process, 'exit');
     this.bot.ircClient.emit('abort', 10);
     process.exit.should.have.been.calledWith(1);
   });
 
-  it('should send messages to irc if correct', function() {
+  it('should send messages to irc if correct', function () {
     const message = {
       type: 'message'
     };
@@ -77,7 +77,7 @@ describe('Bot Events', function() {
     this.bot.sendToIRC.should.have.been.calledWithExactly(message);
   });
 
-  it('should not send messages to irc if the type isn\'t message', function() {
+  it('should not send messages to irc if the type isn\'t message', function () {
     const message = {
       type: 'notmessage'
     };
@@ -85,7 +85,7 @@ describe('Bot Events', function() {
     this.bot.sendToIRC.should.have.not.have.been.called;
   });
 
-  it('should not send messages to irc if it has an invalid subtype', function() {
+  it('should not send messages to irc if it has an invalid subtype', function () {
     const message = {
       type: 'message',
       subtype: 'bot_message'
@@ -94,7 +94,7 @@ describe('Bot Events', function() {
     this.bot.sendToIRC.should.have.not.have.been.called;
   });
 
-  it('should send messages to slack', function() {
+  it('should send messages to slack', function () {
     const channel = '#channel';
     const author = 'user';
     const text = 'hi';
@@ -102,7 +102,7 @@ describe('Bot Events', function() {
     this.bot.sendToSlack.should.have.been.calledWithExactly(author, channel, text);
   });
 
-  it('should send notices to slack', function() {
+  it('should send notices to slack', function () {
     const channel = '#channel';
     const author = 'user';
     const text = 'hi';
@@ -111,7 +111,7 @@ describe('Bot Events', function() {
     this.bot.sendToSlack.should.have.been.calledWithExactly(author, channel, formattedText);
   });
 
-  it('should send actions to slack', function() {
+  it('should send actions to slack', function () {
     const channel = '#channel';
     const author = 'user';
     const text = 'hi';
@@ -121,7 +121,7 @@ describe('Bot Events', function() {
     this.bot.sendToSlack.should.have.been.calledWithExactly(author, channel, formattedText);
   });
 
-  it('should join channels when invited', function() {
+  it('should join channels when invited', function () {
     const channel = '#irc';
     const author = 'user';
     this.debugStub.reset();
@@ -137,7 +137,7 @@ describe('Bot Events', function() {
     secondCall.args[1].should.equal(channel);
   });
 
-  it('should not join channels that aren\'t in the channel mapping', function() {
+  it('should not join channels that aren\'t in the channel mapping', function () {
     const channel = '#wrong';
     const author = 'user';
     this.debugStub.reset();

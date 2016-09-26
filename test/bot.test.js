@@ -13,7 +13,7 @@ import config from './fixtures/single-test-config.json';
 chai.should();
 chai.use(sinonChai);
 
-describe('Bot', function() {
+describe('Bot', function () {
   const sandbox = sinon.sandbox.create({
     useFakeTimers: false,
     useFakeServer: false
@@ -28,7 +28,7 @@ describe('Bot', function() {
     return bot;
   };
 
-  beforeEach(function() {
+  beforeEach(function () {
     sandbox.stub(logger, 'info');
     sandbox.stub(logger, 'debug');
     sandbox.stub(logger, 'error');
@@ -39,15 +39,15 @@ describe('Bot', function() {
     this.bot = createBot();
   });
 
-  afterEach(function() {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  it('should invert the channel mapping', function() {
+  it('should invert the channel mapping', function () {
     this.bot.invertedMapping['#irc'].should.equal('#slack');
   });
 
-  it('should send correct message objects to slack', function() {
+  it('should send correct message objects to slack', function () {
     const text = 'testmessage';
     const message = {
       username: 'testuser',
@@ -59,7 +59,7 @@ describe('Bot', function() {
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
-  it('should send messages to slack groups if the bot is in the channel', function() {
+  it('should send messages to slack groups if the bot is in the channel', function () {
     this.bot.slack.rtm.dataStore.getChannelOrGroupByName = () => {
       const channel = new ChannelStub();
       delete channel.is_member;
@@ -79,7 +79,7 @@ describe('Bot', function() {
   });
 
   it('should not include an avatar for the bot\'s own messages',
-  function() {
+  function () {
     const text = 'testmessage';
     const message = {
       username: config.nickname,
@@ -91,7 +91,7 @@ describe('Bot', function() {
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
-  it('should not include an avatar if avatarUrl is set to false', function() {
+  it('should not include an avatar if avatarUrl is set to false', function () {
     const noAvatarConfig = {
       ...config,
       avatarUrl: false
@@ -108,7 +108,7 @@ describe('Bot', function() {
     bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
-  it('should use a custom icon url if given', function() {
+  it('should use a custom icon url if given', function () {
     const avatarUrl = 'https://cat.com';
     const noAvatarConfig = {
       ...config,
@@ -126,7 +126,7 @@ describe('Bot', function() {
     bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
-  it('should replace $username in the given avatarUrl', function() {
+  it('should replace $username in the given avatarUrl', function () {
     const avatarUrl = 'https://robohash.org/$username.png';
     const noAvatarConfig = {
       ...config,
@@ -144,7 +144,7 @@ describe('Bot', function() {
     bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
-  it('should lowercase channel names before sending to slack', function() {
+  it('should lowercase channel names before sending to slack', function () {
     const text = 'testmessage';
     const message = {
       username: 'testuser',
@@ -157,18 +157,18 @@ describe('Bot', function() {
   });
 
   it('should not send messages to slack if the channel isn\'t in the channel mapping',
-  function() {
+  function () {
     this.bot.sendToSlack('user', '#wrongchan', 'message');
     this.bot.slack.web.chat.postMessage.should.not.have.been.called;
   });
 
-  it('should not send messages to slack if the bot isn\'t in the channel', function() {
+  it('should not send messages to slack if the bot isn\'t in the channel', function () {
     this.bot.slack.rtm.dataStore.getChannelOrGroupByName = () => null;
     this.bot.sendToSlack('user', '#irc', 'message');
     this.bot.slack.web.chat.postMessage.should.not.have.been.called;
   });
 
-  it('should not send messages to slack if the channel\'s is_member is false', function() {
+  it('should not send messages to slack if the channel\'s is_member is false', function () {
     this.bot.slack.rtm.dataStore.getChannelOrGroupByName = () => {
       const channel = new ChannelStub();
       channel.is_member = false;
@@ -179,7 +179,7 @@ describe('Bot', function() {
     this.bot.slack.web.chat.postMessage.should.not.have.been.called;
   });
 
-  it('should replace a bare username if the user is in-channel', function() {
+  it('should replace a bare username if the user is in-channel', function () {
     const message = {
       username: 'testuser',
       parse: 'full',
@@ -192,7 +192,7 @@ describe('Bot', function() {
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, after, message);
   });
 
-  it('should send correct messages to irc', function() {
+  it('should send correct messages to irc', function () {
     const text = 'testmessage';
     const message = {
       text,
@@ -204,7 +204,7 @@ describe('Bot', function() {
     ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
   });
 
-  it('should send /me messages to irc', function() {
+  it('should send /me messages to irc', function () {
     const text = 'testmessage';
     const message = {
       text,
@@ -218,7 +218,7 @@ describe('Bot', function() {
   });
 
   it('should not send messages to irc if the channel isn\'t in the channel mapping',
-  function() {
+  function () {
     this.bot.slack.rtm.dataStore.getChannelGroupOrDMById = () => null;
     const message = {
       channel: 'wrongchannel'
@@ -229,7 +229,7 @@ describe('Bot', function() {
   });
 
   it('should send messages from slackbot if slackbot muting is off',
-  function() {
+  function () {
     const text = 'A message from Slackbot';
     const message = {
       text,
@@ -242,7 +242,7 @@ describe('Bot', function() {
   });
 
   it('should not send messages from slackbot to irc if slackbot muting is on',
-  function() {
+  function () {
     this.bot.muteSlackbot = true;
     const message = {
       user: 'USLACKBOT',
@@ -254,7 +254,7 @@ describe('Bot', function() {
     ClientStub.prototype.say.should.not.have.been.called;
   });
 
-  it('should parse text from slack when sending messages', function() {
+  it('should parse text from slack when sending messages', function () {
     const text = '<@USOMEID> <@USOMEID|readable>';
     const message = {
       text,
@@ -265,7 +265,7 @@ describe('Bot', function() {
     ClientStub.prototype.say.should.have.been.calledWith('#irc', '<testuser> @testuser readable');
   });
 
-  it('should parse text from slack', function() {
+  it('should parse text from slack', function () {
     this.bot.parseText('hi\nhi\r\nhi\r').should.equal('hi hi hi ');
     this.bot.parseText('>><<').should.equal('>><<');
     this.bot.parseText('<!channel> <!group> <!everyone>')
@@ -281,12 +281,12 @@ describe('Bot', function() {
       .should.equal('<somecommand> <readable>');
   });
 
-  it('should parse emojis correctly', function() {
+  it('should parse emojis correctly', function () {
     this.bot.parseText(':smile:').should.equal(':)');
     this.bot.parseText(':train:').should.equal(':train:');
   });
 
-  it('should hide usernames for commands', function() {
+  it('should hide usernames for commands', function () {
     const text = '!test command';
     const message = {
       text,
