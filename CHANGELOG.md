@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.6] - 2016-09-27
+### Fixed
+- Added babel-plugin-add-module-exports so that slack-irc
+can be required without needing `.default` after.
+
 ## [3.8.5] - 2016-09-27
 ### Fixed
 - Correctly handle entity escaping in messages, fixed by @jlaunonen.
