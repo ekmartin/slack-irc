@@ -1,6 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.5] - 2016-09-27
+### Fixed
+- Correctly handle entity escaping in messages, fixed by @jlaunonen.
+
 ## [3.8.4] - 2016-09-26
 ### Fixed
 - Make sure multiple links works for readable representation as well.
