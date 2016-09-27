@@ -30,7 +30,7 @@ It can also be used as a node module:
 ```js
 var slackIRC = require('slack-irc');
 var config = require('./config.json');
-slackIRC(config);
+slackIRC.default(config);
 ```
 
 ## Configuration
