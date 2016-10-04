@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.7] - 2016-10-04
+### Fixed
+- Make sure the CLI works with babel-plugin-add-
+module-exports
+
 ## [3.8.6] - 2016-09-27
 ### Fixed
 - Added babel-plugin-add-module-exports so that slack-irc
