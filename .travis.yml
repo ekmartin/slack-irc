@@ -1,4 +1,7 @@
 language: node_js
+after_sucess:
+  - npm run report
 node_js:
   - '4'
   - '6'
+  - '7'

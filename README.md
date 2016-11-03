@@ -1,4 +1,4 @@
-# slack-irc [![Join the chat at https://gitter.im/ekmartin/slack-irc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ekmartin/slack-irc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/ekmartin/slack-irc.svg?branch=travis)](https://travis-ci.org/ekmartin/slack-irc) [![Coverage status](https://ci.frigg.io/badges/coverage/ekmartin/slack-irc/)](https://ci.frigg.io/ekmartin/slack-irc/last/)
+# slack-irc [![Join the chat at https://gitter.im/ekmartin/slack-irc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ekmartin/slack-irc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/ekmartin/slack-irc.svg?branch=travis)](https://travis-ci.org/ekmartin/slack-irc) [![Coverage Status](https://coveralls.io/repos/github/ekmartin/slack-irc/badge.svg?branch=master)](https://coveralls.io/github/ekmartin/slack-irc?branch=master)
 
 > Connects Slack and IRC channels by sending messages back and forth. Read more [here](https://ekmartin.com/2015/slack-irc).
 
