@@ -192,6 +192,23 @@ describe('Bot', function () {
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, after, message);
   });
 
+  it('should replace $username in custom Slack username format if given', function () {
+    const customSlackUsernameFormatConfig = {
+      ...config,
+      slackUsernameFormat: '$username (IRC)'
+    };
+    const bot = createBot(customSlackUsernameFormatConfig);
+    const text = 'textmessage';
+    const message = {
+      username: 'testuser (IRC)',
+      parse: 'full',
+      icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
+    };
+
+    bot.sendToSlack('testuser', '#irc', text);
+    bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
+  });
+
   it('should send correct messages to irc', function () {
     const text = 'testmessage';
     const message = {

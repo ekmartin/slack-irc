@@ -73,6 +73,7 @@ Valid JSON cannot contain comments, so remember to remove them first!
     "server": "irc.bottest.org",
     "token": "slacktoken", // Your bot user's token
     "avatarUrl": "https://robohash.org/$username.png?size=48x48", // Set to false to disable Slack avatars
+    "slackUsernameFormat": "$username (IRC)", // defaults to just "$username", no prefix or suffix
     "autoSendCommands": [ // Commands that will be sent on connect
       ["PRIVMSG", "NickServ", "IDENTIFY password"],
       ["MODE", "test", "+x"],
