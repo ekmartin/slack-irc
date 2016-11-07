@@ -110,11 +110,11 @@ describe('Bot', function () {
 
   it('should use a custom icon url if given', function () {
     const avatarUrl = 'https://cat.com';
-    const noAvatarConfig = {
+    const customAvatarConfig = {
       ...config,
       avatarUrl
     };
-    const bot = createBot(noAvatarConfig);
+    const bot = createBot(customAvatarConfig);
     const text = 'testmessage';
     const message = {
       username: 'testuser',
@@ -128,11 +128,11 @@ describe('Bot', function () {
 
   it('should replace $username in the given avatarUrl', function () {
     const avatarUrl = 'https://robohash.org/$username.png';
-    const noAvatarConfig = {
+    const customAvatarConfig = {
       ...config,
       avatarUrl
     };
-    const bot = createBot(noAvatarConfig);
+    const bot = createBot(customAvatarConfig);
     const text = 'testmessage';
     const message = {
       username: 'testuser',
