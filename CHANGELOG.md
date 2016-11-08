@@ -1,6 +1,18 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.9.0] - 2016-11-07
+### Added
+- Config option `slackUsernameFormat`, which allows for
+customization of the username that will be used when posting
+to Slack (thanks to @laughinghan!).
+
+### Changed
+- Default Slack username changed to `$username (IRC)`
+(see the `(IRC)` suffix). This can be changed to the
+old default by setting the new `slackUsernameFormat`,
+to `'$username'`.
+
 ## [3.8.7] - 2016-10-04
 ### Fixed
 - Make sure the CLI works with babel-plugin-add-
