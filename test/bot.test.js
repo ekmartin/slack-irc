@@ -50,12 +50,12 @@ describe('Bot', function () {
   it('should send correct message objects to slack', function () {
     const text = 'testmessage';
     const message = {
-      username: 'testuser',
+      username: 'testuser (IRC)',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
-    this.bot.sendToSlack(message.username, '#irc', text);
+    this.bot.sendToSlack('testuser', '#irc', text);
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
@@ -69,12 +69,12 @@ describe('Bot', function () {
 
     const text = 'testmessage';
     const message = {
-      username: 'testuser',
+      username: 'testuser (IRC)',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
-    this.bot.sendToSlack(message.username, '#irc', text);
+    this.bot.sendToSlack('testuser', '#irc', text);
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
@@ -82,12 +82,12 @@ describe('Bot', function () {
   function () {
     const text = 'testmessage';
     const message = {
-      username: config.nickname,
+      username: `${config.nickname} (IRC)`,
       parse: 'full',
       icon_url: undefined
     };
 
-    this.bot.sendToSlack(message.username, '#irc', text);
+    this.bot.sendToSlack(config.nickname, '#irc', text);
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
@@ -99,12 +99,12 @@ describe('Bot', function () {
     const bot = createBot(noAvatarConfig);
     const text = 'testmessage';
     const message = {
-      username: 'testuser',
+      username: 'testuser (IRC)',
       parse: 'full',
       icon_url: undefined
     };
 
-    bot.sendToSlack(message.username, '#irc', text);
+    bot.sendToSlack('testuser', '#irc', text);
     bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
@@ -117,12 +117,12 @@ describe('Bot', function () {
     const bot = createBot(customAvatarConfig);
     const text = 'testmessage';
     const message = {
-      username: 'testuser',
+      username: 'testuser (IRC)',
       parse: 'full',
       icon_url: avatarUrl
     };
 
-    bot.sendToSlack(message.username, '#irc', text);
+    bot.sendToSlack('testuser', '#irc', text);
     bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
@@ -135,24 +135,24 @@ describe('Bot', function () {
     const bot = createBot(customAvatarConfig);
     const text = 'testmessage';
     const message = {
-      username: 'testuser',
+      username: 'testuser (IRC)',
       parse: 'full',
       icon_url: 'https://robohash.org/testuser.png'
     };
 
-    bot.sendToSlack(message.username, '#irc', text);
+    bot.sendToSlack('testuser', '#irc', text);
     bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
   it('should lowercase channel names before sending to slack', function () {
     const text = 'testmessage';
     const message = {
-      username: 'testuser',
+      username: 'testuser (IRC)',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
-    this.bot.sendToSlack(message.username, '#IRC', text);
+    this.bot.sendToSlack('testuser', '#IRC', text);
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
@@ -181,26 +181,43 @@ describe('Bot', function () {
 
   it('should replace a bare username if the user is in-channel', function () {
     const message = {
-      username: 'testuser',
+      username: 'testuser (IRC)',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
 
     const before = 'testuser should be replaced in the message';
     const after = '@testuser should be replaced in the message';
-    this.bot.sendToSlack(message.username, '#IRC', before);
+    this.bot.sendToSlack('testuser', '#IRC', before);
     this.bot.slack.web.chat.postMessage.should.have.been.calledWith(1, after, message);
+  });
+
+  it('should allow disabling Slack username suffix', function () {
+    const customSlackUsernameFormatConfig = {
+      ...config,
+      slackUsernameFormat: '$username'
+    };
+    const bot = createBot(customSlackUsernameFormatConfig);
+    const text = 'textmessage';
+    const message = {
+      username: 'testuser',
+      parse: 'full',
+      icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
+    };
+
+    bot.sendToSlack('testuser', '#irc', text);
+    bot.slack.web.chat.postMessage.should.have.been.calledWith(1, text, message);
   });
 
   it('should replace $username in custom Slack username format if given', function () {
     const customSlackUsernameFormatConfig = {
       ...config,
-      slackUsernameFormat: '$username (IRC)'
+      slackUsernameFormat: 'prefix $username suffix'
     };
     const bot = createBot(customSlackUsernameFormatConfig);
     const text = 'textmessage';
     const message = {
-      username: 'testuser (IRC)',
+      username: 'prefix testuser suffix',
       parse: 'full',
       icon_url: 'http://api.adorable.io/avatars/48/testuser.png'
     };
