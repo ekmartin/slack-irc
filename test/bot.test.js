@@ -345,4 +345,24 @@ describe('Bot', function () {
     ]);
     ClientStub.prototype.say.getCall(1).args.should.deep.equal(['#irc', text]);
   });
+
+  it('should not forward messages from users in slack mute list', function () {
+    this.bot.muteUsersSlack = ['testuser'];
+    const text = 'testmessage';
+    const message = {
+      text,
+      channel: 'slack'
+    };
+
+    this.bot.sendToIRC(message);
+    ClientStub.prototype.say.should.not.have.been.called;
+  });
+
+  it('should not forward messages from users in irc mute list', function () {
+    this.bot.muteUsersIrc = ['testuser'];
+    const text = 'testmessage';
+
+    this.bot.sendToSlack('testuser', '#irc', text);
+    this.bot.slack.web.chat.postMessage.should.not.have.been.called;
+  });
 });
