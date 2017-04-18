@@ -77,6 +77,19 @@ describe('Bot Events', function () {
     this.bot.sendToIRC.should.have.been.calledWithExactly(message);
   });
 
+  it('should send files to irc if correct', function () {
+    const message = {
+      type: 'message',
+      subtype: 'file_share',
+      file: {
+        permalink: 'test',
+        permalink_public: 'test'
+      }
+    };
+    this.bot.slack.rtm.emit('message', message);
+    this.bot.sendToIRC.should.have.been.calledWithExactly(message);
+  });
+
   it('should not send messages to irc if the type isn\'t message', function () {
     const message = {
       type: 'notmessage'
