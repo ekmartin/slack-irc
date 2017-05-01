@@ -1,6 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.10.0] - 2017-04-30
+### Added
+- Report file uploads to IRC - [#193](https://github.com/ekmartin/slack-irc/pull/193).
+
 ## [3.9.0] - 2016-11-07
 ### Added
 - Config option `slackUsernameFormat`, which allows for
