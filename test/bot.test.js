@@ -251,6 +251,28 @@ describe('Bot', function () {
     ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
   });
 
+  it('should send files to irc', function () {
+    const link1 = 'test1';
+    const link2 = 'test2';
+    const text = 'testcomment';
+    const message = {
+      text: '',
+      channel: 'slack',
+      subtype: 'file_share',
+      file: {
+        permalink: link1,
+        permalink_public: link2,
+        initial_comment: {
+          comment: text
+        }
+      }
+    };
+
+    this.bot.sendToIRC(message);
+    const ircText = `<testuser> File uploaded ${link1} / ${link2} - ${text}`;
+    ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
+  });
+
   it('should not send messages to irc if the channel isn\'t in the channel mapping',
   function () {
     this.bot.slack.rtm.dataStore.getChannelGroupOrDMById = () => null;
