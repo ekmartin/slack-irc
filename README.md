@@ -97,7 +97,11 @@ Valid JSON cannot contain comments, so remember to remove them first!
     "ircStatusNotices": {
       "join": false, // Don't send messages about joins
       "leave": true
-    }
+    },
+    // Prevent messages posted by testuser on IRC from being forwarded to Slack channel:
+    "muteUsersIrc": ["testuser"],
+    // Prevent messages posted by testuser on Slack from being forwarded to IRC channel:
+    "muteUsersSlack": ["testuser"]
   }
 ]
 ```
