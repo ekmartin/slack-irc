@@ -369,7 +369,7 @@ describe('Bot', function () {
   });
 
   it('should not forward messages from users in slack mute list', function () {
-    this.bot.muteUsersSlack = ['testuser'];
+    this.bot.muteUsers.slack = ['testuser'];
     const text = 'testmessage';
     const message = {
       text,
@@ -381,7 +381,7 @@ describe('Bot', function () {
   });
 
   it('should not forward messages from users in irc mute list', function () {
-    this.bot.muteUsersIrc = ['testuser'];
+    this.bot.muteUsers.irc = ['testuser'];
     const text = 'testmessage';
 
     this.bot.sendToSlack('testuser', '#irc', text);
