@@ -37,7 +37,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@slack/client": "3.9.0",
+    "@slack/client": "3.10.0",
     "check-env": "1.2.0",
     "commander": "2.9.0",
     "irc": "0.5.2",
