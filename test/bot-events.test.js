@@ -107,6 +107,29 @@ describe('Bot Events', function () {
     this.bot.sendToIRC.should.have.not.have.been.called;
   });
 
+  it('should not send bot messages without usernames to irc', function () {
+    const message = {
+      type: 'message',
+      subtype: 'bot_message',
+      text: 'a message from a bot',
+      bot_id: 'ROBOT'
+    };
+    this.bot.slack.rtm.emit('message', message);
+    this.bot.sendToIRC.should.have.not.have.been.called;
+  });
+
+  it('should send bot messages with usernames to irc', function () {
+    const message = {
+      type: 'message',
+      subtype: 'bot_message',
+      text: 'a message from a user',
+      username: 'realuser',
+      bot_id: 'ROBOT'
+    };
+    this.bot.slack.rtm.emit('message', message);
+    this.bot.sendToIRC.should.have.have.been.called;
+  });
+
   it('should send messages to slack', function () {
     const channel = '#channel';
     const author = 'user';

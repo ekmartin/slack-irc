@@ -310,6 +310,32 @@ describe('Bot', function () {
     ClientStub.prototype.say.should.not.have.been.called;
   });
 
+  it('should not send messages from bots with usernames if bridged user muting is on', function () {
+    this.bot.muteBridgedUsers = true;
+    const message = {
+      type: 'message',
+      subtype: 'bot_message',
+      bot_id: 'SOMEBOT',
+      username: 'someuser',
+      text: 'hello world!'
+    };
+    this.bot.sendToIRC(message);
+    ClientStub.prototype.say.should.not.have.been.called;
+  });
+
+  it('should send bot messages with usernames to irc', function () {
+    this.bot.muteBridgedUsers = false;
+    const message = {
+      type: 'message',
+      subtype: 'bot_message',
+      bot_id: 'SOMEBOT',
+      username: 'someuser',
+      text: 'hello world!'
+    };
+    this.bot.sendToIRC(message);
+    ClientStub.prototype.say.should.have.been.called;
+  });
+
   it('should parse text from slack when sending messages', function () {
     const text = '<@USOMEID> <@USOMEID|readable>';
     const message = {
