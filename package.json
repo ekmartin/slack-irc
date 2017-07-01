@@ -39,6 +39,7 @@
   "dependencies": {
     "@slack/client": "3.10.0",
     "check-env": "1.2.0",
+    "check-env": "1.3.0",
     "commander": "2.9.0",
     "irc": "0.5.2",
     "lodash": "^4.15.0",
