@@ -101,7 +101,7 @@ Valid JSON cannot contain comments, so remember to remove them first!
     // Prevent messages posted by users on Slack/IRC from being forwarded:
     "muteUsers": {
       "irc": ["irc-user"],
-      "slack: ["slack-user"]
+      "slack": ["slack-user"]
     }
   }
 ]
