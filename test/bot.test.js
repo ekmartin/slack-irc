@@ -238,6 +238,40 @@ describe('Bot', function () {
     ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
   });
 
+  it('should allow custom user formats for irc', function () {
+    const customIRCUsernameFormatConfig = {
+      ...config,
+      ircUsernameFormat: '$username: '
+    };
+    const bot = createBot(customIRCUsernameFormatConfig);
+    const text = 'testmessage';
+    const message = {
+      text,
+      channel: 'slack'
+    };
+
+    bot.sendToIRC(message);
+    const ircText = `testuser: ${text}`;
+    ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
+  });
+
+  it('should allow to remove user name in formats for irc', function () {
+    const customIRCUsernameFormatConfig = {
+      ...config,
+      ircUsernameFormat: ''
+    };
+    const bot = createBot(customIRCUsernameFormatConfig);
+    const text = 'testmessage';
+    const message = {
+      text,
+      channel: 'slack'
+    };
+
+    bot.sendToIRC(message);
+    const ircText = `${text}`;
+    ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
+  });
+
   it('should send /me messages to irc', function () {
     const text = 'testmessage';
     const message = {
