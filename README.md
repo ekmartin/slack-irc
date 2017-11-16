@@ -5,34 +5,6 @@
 ## Demo
 ![Slack IRC](http://i.imgur.com/58H6HgO.gif)
 
-## Installation and usage
-*Note*: [node-irc](https://github.com/martynsmith/node-irc/)
-uses icu-charset-detector as an optional dependency,
-which might fail to install depending on how you've installed Node.js.
-slack-irc works fine anyhow though, so no need to worry.
-
-Installing with npm:
-```bash
-$ npm install -g slack-irc
-$ slack-irc --config /path/to/config.json
-```
-
-or by cloning the repository:
-
-```bash
-$ git clone https://github.com/ekmartin/slack-irc.git && cd slack-irc
-$ npm install
-$ npm run build
-$ npm start -- --config /path/to/config.json # Note the extra -- here
-```
-
-It can also be used as a node module:
-```js
-var slackIRC = require('slack-irc');
-var config = require('./config.json');
-slackIRC(config);
-```
-
 ## Configuration
 
 slack-irc uses Slack's [bot users](https://api.slack.com/bot-users).
@@ -110,6 +82,49 @@ Valid JSON cannot contain comments, so remember to remove them first!
 
 `ircOptions` is passed directly to node-irc ([available options](http://node-irc.readthedocs.org/en/latest/API.html#irc.Client)).
 
+## Quickstart with Docker  
+Get sample configuration:  
+[config.json.sample](https://raw.githubusercontent.com/mrhillsman/dockerize-slack-irc/master/config.json.sample)
+
+Update configuration:  
+Copy `config.json.sample` to `config.json` and edit appropriately; details on configuration options below.
+
+Start container with config.json mounted:  
+```
+docker run -d --mount type=bind,src=/path/on/host/to/config.json,dst=/app/config.json mrhillsman/dockerize-slack-irc
+```  
+
+Repo for third-party Docker container can be found [here](https://github.com/mrhillsman/dockerize-slack-irc).
+
+
+## Installation and usage
+*Note*: [node-irc](https://github.com/martynsmith/node-irc/)
+uses icu-charset-detector as an optional dependency,
+which might fail to install depending on how you've installed Node.js.
+slack-irc works fine anyhow though, so no need to worry.  
+
+Installing with npm:
+```bash
+$ npm install -g slack-irc
+$ slack-irc --config /path/to/config.json
+```
+
+or by cloning the repository:
+
+```bash
+$ git clone https://github.com/ekmartin/slack-irc.git && cd slack-irc
+$ npm install
+$ npm run build
+$ npm start -- --config /path/to/config.json # Note the extra -- here
+```
+
+It can also be used as a node module:
+```js
+var slackIRC = require('slack-irc');
+var config = require('./config.json');
+slackIRC(config);
+```
+
 ## Personal IRC Client
 slack-irc strengths mainly lie in many-to-many communication from Slack to IRC (and vice versa),
 and is thus not very suitable as a makeshift IRC client for one user. If that's
@@ -141,6 +156,3 @@ $ npm run lint
 ```
 
 The deviations from the Airbnb Style Guide can be seen in  the [.eslintrc](.eslintrc) file.
-
-## Docker
-A third-party Docker container can be found [here](https://github.com/caktux/slackbridge/).
