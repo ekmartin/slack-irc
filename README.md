@@ -87,7 +87,7 @@ Get sample configuration:
 [config.json.sample](https://raw.githubusercontent.com/mrhillsman/dockerize-slack-irc/master/config.json.sample)
 
 Update configuration:  
-Copy `config.json.sample` to `config.json` and edit appropriately; details on configuration options below.
+Copy `config.json.sample` to `config.json` and edit appropriately.
 
 Start container with config.json mounted:  
 ```
