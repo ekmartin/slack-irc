@@ -3,7 +3,7 @@ import chai from 'chai';
 import sinon from 'sinon';
 import logger from 'winston';
 import sinonChai from 'sinon-chai';
-import irc from 'irc';
+import irc from 'irc-upd';
 import Bot from '../lib/bot';
 import SlackStub from './stubs/slack-stub';
 import ChannelStub from './stubs/channel-stub';

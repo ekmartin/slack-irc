@@ -1,6 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.11.1] - 2018-02-14
+### Fixed
+- Replaced node-irc with @Throne3d's fork, [irc-upd](https://github.com/Throne3d/node-irc).
+
 ## [3.11.0] - 2017-05-12
 ### Added
 - `muteUsers` config option for muting users on Slack and IRC -
