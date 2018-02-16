@@ -59,7 +59,7 @@
     "eslint-plugin-import": "^2.0.1",
     "mocha": "^3.0.1",
     "nyc": "^11.0.3",
-    "sinon": "^1.17.5",
+    "sinon": "^4.3.0",
     "sinon-chai": "^2.8.0"
   }
 }
