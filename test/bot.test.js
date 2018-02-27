@@ -238,6 +238,22 @@ describe('Bot', function () {
     ClientStub.prototype.say.should.have.been.calledWith('#irc', ircText);
   });
 
+  it('should not send messages to irc if read-only', function () {
+    const customReadOnlyConfig = {
+      ...config,
+      readOnly: true
+    };
+    const bot = createBot(customReadOnlyConfig);
+    const text = 'testmessage';
+    const message = {
+      text,
+      channel: 'slack'
+    };
+
+    bot.sendToIRC(message);
+    ClientStub.prototype.say.should.not.have.been.called;
+  });
+
   it('should allow custom user formats for irc', function () {
     const customIRCUsernameFormatConfig = {
       ...config,
