@@ -104,7 +104,7 @@ Valid JSON cannot contain comments, so remember to remove them first!
       "irc": ["irc-user"],
       "slack": ["slack-user"]
     },
-    "ircHighlightUsernames": true // Off by default, uses IRC colors to colorize Slack usernames on IRC
+    "ircColorizeUsernames": true // Off by default, uses IRC colors to colorize Slack usernames on IRC
   }
 ]
 ```
