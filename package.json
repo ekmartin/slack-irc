@@ -43,7 +43,8 @@
     "irc-upd": "0.10.0",
     "lodash": "^4.17.11",
     "strip-json-comments": "3.0.1",
-    "winston": "3.2.1"
+    "winston": "3.2.1",
+    "jsonpath": "1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
